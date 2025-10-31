@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"JsonCompare/cmd/JsonCompare"
 	"encoding/json"
 	"fmt"
+	"github.com/aidankeefe2022/JsonCompare/cmd/JsonCompare"
 	"os"
 
 	"github.com/spf13/cobra"
