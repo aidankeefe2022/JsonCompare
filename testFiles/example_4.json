@@ -1,0 +1,70 @@
+{
+  "storeName": "Infinite Pages Bookstore",
+  "location": "Online Only",
+  "openingHours": "24/7",
+  "totalProducts": 4,
+  "isOnlineStore": true,
+  "contactEmail": "support@infinitepages.com",
+  "website": "https://www.infinitepages.com",
+  "products": [
+    {
+      "id": "P001",
+      "category": "Electronics",
+      "tags": ["ultrabook", "tech", "laptop"],
+      "name": "UltraBook Pro X",
+      "price": 1299.99,
+      "inStock": true,
+      "isFeatured": true,
+      "reviews": []
+    },
+    {
+      "id": "P002",
+      "name": "SonicBlast Headphones (Updated)",
+      "category": "Audio",
+      "price": 199.50,
+      "currency": "USD",
+      "inStock": false,
+      "description": "New and improved immersive sound with noise cancellation.",
+      "tags": ["wireless", "headphones", "audio"],
+      "reviews": [
+        {
+          "reviewer": "David",
+          "rating": 5,
+          "comment": "Absolutely phenomenal sound!"
+        },
+        {
+          "reviewer": "Eve",
+          "rating": 5,
+          "comment": "Best noise cancellation I've experienced."
+        }
+      ]
+    },
+    {
+      "id": "P003",
+      "name": "The Quantum Enigma",
+      "category": "Books",
+      "price": 15.00,
+      "inStock": false,
+      "description": "A thrilling sci-fi adventure, now with bonus chapter.",
+      "tags": ["book", "fiction", "sci-fi"],
+      "reviews": [
+        {
+          "reviewer": "Frank",
+          "rating": 3,
+          "comment": "Decent read, but expected more."
+        }
+      ]
+    },
+    {
+      "id": "P005",
+      "name": "Smart Home Hub",
+      "category": "Smart Devices",
+      "price": 89.99,
+      "currency": "USD",
+      "inStock": true,
+      "description": "Central control for your smart home ecosystem.",
+      "tags": [],
+      "reviews": []
+    }
+  ]
+}

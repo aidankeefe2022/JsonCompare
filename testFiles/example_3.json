@@ -1,0 +1,61 @@
+{
+  "storeName": "The Literary Nook",
+  "location": "789 Elm St, Portland, OR",
+  "openingHours": {
+    "weekdays": "9 AM - 8 PM",
+    "saturday": "10 AM - 6 PM",
+    "sunday": "Closed"
+  },
+  "isOnlineStore": null,
+  "products": [
+    {
+      "id": "P001",
+      "name": "UltraBook Pro X",
+      "category": "Electronics",
+      "price": 1299.99,
+      "currency": "USD",
+      "inStock": true,
+      "description": "Powerful and sleek laptop with retina display.",
+      "tags": ["laptop", "ultrabook", "tech"]
+    },
+    {
+      "id": "P002",
+      "name": "SonicBlast Headphones",
+      "category": "Audio",
+      "price": 199.50,
+      "currency": "USD",
+      "inStock": true,
+      "description": "Immersive sound with noise cancellation.",
+      "tags": ["audio", "wireless", "headphones"],
+      "reviews": [
+        {
+          "reviewer": "Charlie",
+          "rating": 4,
+          "comment": "Great sound, comfortable."
+        }
+      ]
+    },
+    {
+      "id": "P003",
+      "name": "The Quantum Enigma",
+      "category": "Books",
+      "price": "$15.00",
+      "currency": "USD",
+      "inStock": false,
+      "description": "A thrilling sci-fi adventure.",
+      "tags": ["book", "fiction", "sci-fi"],
+      "reviews": []
+    },
+    {
+      "id": "P005",
+      "name": "Smart Home Hub",
+      "category": "Smart Devices",
+      "price": 89.99,
+      "currency": "USD",
+      "inStock": true,
+      "description": "Central control for your smart home ecosystem.",
+      "tags": ["smart home", "IoT", "hub"],
+      "reviews": []
+    }
+  ]
+}
