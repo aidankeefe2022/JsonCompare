@@ -1,32 +1,27 @@
 # JSON COMPARE QUIQ TAKE HOME
-```
-
-    /$$$$$                                /$$$$$$                                                                 
-   |__  $$                               /$$__  $$                                                                
-      | $$  /$$$$$$$  /$$$$$$  /$$$$$$$ | $$  \__/  /$$$$$$  /$$$$$$/$$$$   /$$$$$$   /$$$$$$   /$$$$$$   /$$$$$$ 
-      | $$ /$$_____/ /$$__  $$| $$__  $$| $$       /$$__  $$| $$_  $$_  $$ /$$__  $$ |____  $$ /$$__  $$ /$$__  $$
- /$$  | $$|  $$$$$$ | $$  \ $$| $$  \ $$| $$      | $$  \ $$| $$ \ $$ \ $$| $$  \ $$  /$$$$$$$| $$  \__/| $$$$$$$$
-| $$  | $$ \____  $$| $$  | $$| $$  | $$| $$    $$| $$  | $$| $$ | $$ | $$| $$  | $$ /$$__  $$| $$      | $$_____/
-|  $$$$$$/ /$$$$$$$/|  $$$$$$/| $$  | $$|  $$$$$$/|  $$$$$$/| $$ | $$ | $$| $$$$$$$/|  $$$$$$$| $$      |  $$$$$$$
- \______/ |_______/  \______/ |__/  |__/ \______/  \______/ |__/ |__/ |__/| $$____/  \_______/|__/       \_______/
-                                                                          | $$                                    
-                                                                          | $$                                    
-                                                                          |__/ 
-```
 
 ## Requirements
 
 - go 1.25+
 ## Install 
 
-### Full install
+### Project Root Install
+
+====  Consideration ====
+
+- Must have GOPATH added to Path env var. (https://go.dev/wiki/SettingGOPATH)
+
 To install the tool to work like a classic Cli tool use:
 ```
 go install .
 ```
-In the project root 
+In the project root and then you can run this in the command line!
 
 ```
 JsonCompare -h
 ```
+
+### Git Repo Install
+
+
 
