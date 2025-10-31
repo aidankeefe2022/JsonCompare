@@ -169,7 +169,18 @@ func TestCompareFilesHardEqual(t *testing.T) {
 		Score: 1.0,
 	}
 	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_2.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_1.json")
-	if out.Score < 1.0 {
+	if out.Score != 1.0 {
+		t.Error("Did not expect 1.0 score")
+	}
+	mismatches = make([]SnapShot, 0)
+}
+
+func TestCompareFiles34(t *testing.T) {
+	output = Output{
+		Score: 1.0,
+	}
+	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_4.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_3.json")
+	if out.Score == 1.0 {
 		t.Error("Did not expect 1.0 score")
 	}
 	mismatches = make([]SnapShot, 0)

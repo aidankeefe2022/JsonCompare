@@ -71,10 +71,12 @@ func CompareFiles(path1 string, path2 string) Output {
 
 	err, jsonObject1 := parseJson(*file1)
 	if err != nil {
+		log.Println("File1 from path ", path1, " was not a valid json object")
 		log.Fatal(err)
 	}
 	err, jsonObject2 := parseJson(*file2)
 	if err != nil {
+		log.Println("File2 from path ", path2, " was not a valid json object")
 		log.Fatal(err)
 	}
 
@@ -120,8 +122,8 @@ func floatCheck(object1 any, object2 any, currentPath []string) {
 	intAreEqual := object1.(float64) == object2.(float64)
 	if !intAreEqual {
 		mismatches = append(mismatches, SnapShot{
-			Path:     currentPath,
-			MisMatch: strconv.FormatFloat(object1.(float64), 'f', -1, 64) + ":" + strconv.FormatFloat(object2.(float64), 'f', -1, 64),
+			Path:     append([]string(nil), currentPath...),
+			MisMatch: shorten(strconv.FormatFloat(object1.(float64), 'f', -1, 64), 15) + ":" + shorten(strconv.FormatFloat(object2.(float64), 'f', -1, 64), 15),
 		})
 		output.incrScore(len(strconv.FormatFloat(object1.(float64), 'f', -1, 64)))
 	}
@@ -135,8 +137,8 @@ func stringCheck(object1 any, object2 any, currentPath []string) {
 	stringsAreEqual := object1.(string) == object2.(string)
 	if !stringsAreEqual {
 		mismatches = append(mismatches, SnapShot{
-			Path:     currentPath,
-			MisMatch: object1.(string) + ":" + object2.(string),
+			Path:     append([]string(nil), currentPath...),
+			MisMatch: shorten(object1.(string), 15) + ":" + shorten(object2.(string), 15),
 		})
 		output.incrScore(len(object1.(string)))
 	}
@@ -157,14 +159,14 @@ func sliceCheck(object1 any, object2 any, currentPath []string) {
 
 func mapCheck(object1 any, object2 any, currentPath []string) {
 	if reflect.TypeOf(object2).Kind() != reflect.Map {
-		typeError(reflect.TypeOf(object1), reflect.TypeOf(object2), currentPath)
+		typeError(object1, object2, currentPath)
 		return
 	}
 	for key := range maps.Keys(object1.(map[string]interface{})) {
 		_, keyInMap := object2.(map[string]any)[key]
 		if !keyInMap {
 			mismatches = append(mismatches, SnapShot{
-				Path:     currentPath,
+				Path:     append([]string(nil), currentPath...),
 				MisMatch: key,
 			})
 			output.incrScore(getJsonSize(object1.(map[string]interface{})[key]) + getJsonSize(key))
@@ -175,6 +177,7 @@ func mapCheck(object1 any, object2 any, currentPath []string) {
 }
 
 func typeError(object1 any, object2 any, currentPath []string) {
+
 	jsonString1, err := json.Marshal(object1)
 	if err != nil {
 		log.Fatal(err)
@@ -184,15 +187,15 @@ func typeError(object1 any, object2 any, currentPath []string) {
 		log.Fatal(err)
 	}
 	mismatches = append(mismatches, SnapShot{
-		Path:     currentPath,
+		Path:     append([]string(nil), currentPath...),
 		MisMatch: shorten(string(jsonString1), 15) + ":" + shorten(string(jsonString2), 15),
 	})
 }
 func shorten(s string, max int) string {
 	if len(s) > max {
-		return s[:max] + "..."
+		return s[:max] + "...  "
 	}
-	return s
+	return s + "   "
 }
 
 func parseJson(file os.File) (error, any) {

@@ -25,9 +25,7 @@ var rootCommand = &cobra.Command{
                                                                           | $$                                    
                                                                           |__/ 
 
-
-	- Cli tool to assist with creating, altering and, swapping pique definitions.
-
+		- Cli tool to assist with Json Comparing
 `,
 	Args: cobra.MinimumNArgs(2),
 
