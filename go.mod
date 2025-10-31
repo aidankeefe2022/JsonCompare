@@ -1,4 +1,4 @@
-module JsonCompare
+module github.com/aidankeefe2022/JsonCompare
 
 go 1.25
 

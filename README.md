@@ -23,5 +23,9 @@ JsonCompare -h
 
 ### Git Repo Install
 
+==== Consideration ====
+
+- Must have GOPATH added to Path env var. (https://go.dev/wiki/SettingGOPATH)
+
 
 
