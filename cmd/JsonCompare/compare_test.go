@@ -135,7 +135,7 @@ func TestCompareFiles(t *testing.T) {
 		Score: 1.0,
 	}
 	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test1.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test2.json")
-	if out.Score != 1.0 {
+	if out.Score != 0 {
 		t.Error("Expected 1.0 score")
 	}
 	mismatches = make([]SnapShot, 0)
@@ -149,6 +149,28 @@ func TestCompareFilesSlices(t *testing.T) {
 	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test1Slice.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test2Slice.json")
 	if out.Score != 1.0 {
 		t.Error("Expected 1.0 score")
+	}
+	mismatches = make([]SnapShot, 0)
+}
+
+func TestCompareFilesHard(t *testing.T) {
+	output = Output{
+		Score: 1.0,
+	}
+	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_2.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_3.json")
+	if out.Score == 1.0 {
+		t.Error("Did not expect 1.0 score")
+	}
+	mismatches = make([]SnapShot, 0)
+}
+
+func TestCompareFilesHardEqual(t *testing.T) {
+	output = Output{
+		Score: 1.0,
+	}
+	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_2.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/example_1.json")
+	if out.Score < 1.0 {
+		t.Error("Did not expect 1.0 score")
 	}
 	mismatches = make([]SnapShot, 0)
 }

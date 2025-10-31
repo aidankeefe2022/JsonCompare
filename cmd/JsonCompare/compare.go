@@ -36,7 +36,7 @@ func getJsonSize(object interface{}) int {
 		log.Fatal(err)
 	}
 
-	re := regexp.MustCompile(`"[^"]*"|-?\d+(?:\.\d+)?`)
+	re := regexp.MustCompile(`"[^"]*"|\d+(?:\.\d+)?|\w+`)
 
 	str := re.FindAllString(string(jsonBytes), -1)
 
@@ -98,6 +98,9 @@ func CompareFiles(path1 string, path2 string) Output {
 }
 
 func check(object1 any, object2 any, currentPath []string) {
+	if object1 == nil || object2 == nil {
+		return
+	}
 	if reflect.TypeOf(object1).Kind() == reflect.Map {
 		mapCheck(object1, object2, currentPath)
 	} else if reflect.TypeOf(object1).Kind() == reflect.Slice {
@@ -148,7 +151,7 @@ func sliceCheck(object1 any, object2 any, currentPath []string) {
 		if index >= len(object2.([]interface{})) {
 			return
 		}
-		check(item1, object2.([]any)[index], currentPath)
+		check(item1, object2.([]any)[index], append(currentPath, strconv.Itoa(index)))
 	}
 }
 
