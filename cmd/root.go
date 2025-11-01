@@ -33,8 +33,8 @@ var rootCommand = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		jsonFlag, _ := cmd.Flags().GetBool("json")
 		verbose, _ := cmd.Flags().GetBool("verbose")
-		filePath1 := args[1]
-		filePath2 := args[2]
+		filePath1 := args[0]
+		filePath2 := args[1]
 		output := JsonCompare.CompareFiles(filePath1, filePath2)
 		if jsonFlag && verbose {
 			pretty, _ := json.MarshalIndent(output, "", "  ")

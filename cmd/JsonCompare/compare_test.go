@@ -136,7 +136,7 @@ func TestCompareFiles(t *testing.T) {
 	}
 	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test1.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test2.json")
 	if out.Score != 0 {
-		t.Error("Expected 1.0 score")
+		t.Error("Expected 0.0 score")
 	}
 	mismatches = make([]SnapShot, 0)
 

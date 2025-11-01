@@ -12,6 +12,20 @@ import (
 	"strings"
 )
 
+type ErrorType int
+
+const (
+	KeyError ErrorType = iota
+	ValueError
+	TypeError
+)
+
+var errors = map[ErrorType]string{
+	0: "KeyError",
+	1: "ValueError",
+	2: "TypeError",
+}
+
 type Output struct {
 	TotalBytes    float64
 	MismatchBytes float64
@@ -21,8 +35,10 @@ type Output struct {
 }
 
 type SnapShot struct {
-	Path     []string
-	MisMatch string
+	Path        []string
+	MisMatch    string
+	Description string
+	Error       string
 }
 
 func (o *Output) incrScore(val int) {
@@ -52,7 +68,7 @@ var output = Output{
 func CompareFiles(path1 string, path2 string) Output {
 	abs, err := filepath.Abs(path1)
 	if err != nil {
-		return Output{}
+		log.Fatal(err)
 	}
 	file1, err := os.Open(abs)
 	if err != nil {
@@ -61,7 +77,7 @@ func CompareFiles(path1 string, path2 string) Output {
 	defer file1.Close()
 	abs2, err := filepath.Abs(path2)
 	if err != nil {
-		return Output{}
+		log.Fatal(err)
 	}
 	file2, err := os.Open(abs2)
 	if err != nil {
@@ -100,7 +116,11 @@ func CompareFiles(path1 string, path2 string) Output {
 }
 
 func check(object1 any, object2 any, currentPath []string) {
-	if object1 == nil || object2 == nil {
+	if object1 == nil {
+		return
+	}
+	if object2 == nil {
+		typeError(object1, object2, currentPath)
 		return
 	}
 	if reflect.TypeOf(object1).Kind() == reflect.Map {
@@ -122,8 +142,10 @@ func floatCheck(object1 any, object2 any, currentPath []string) {
 	intAreEqual := object1.(float64) == object2.(float64)
 	if !intAreEqual {
 		mismatches = append(mismatches, SnapShot{
-			Path:     append([]string(nil), currentPath...),
-			MisMatch: shorten(strconv.FormatFloat(object1.(float64), 'f', -1, 64), 15) + ":" + shorten(strconv.FormatFloat(object2.(float64), 'f', -1, 64), 15),
+			Path:        append([]string(nil), currentPath...),
+			MisMatch:    shorten(strconv.FormatFloat(object1.(float64), 'f', -1, 64), 15) + ":" + shorten(strconv.FormatFloat(object2.(float64), 'f', -1, 64), 15),
+			Description: "Floats are not equal",
+			Error:       errors[ValueError],
 		})
 		output.incrScore(len(strconv.FormatFloat(object1.(float64), 'f', -1, 64)))
 	}
@@ -137,8 +159,10 @@ func stringCheck(object1 any, object2 any, currentPath []string) {
 	stringsAreEqual := object1.(string) == object2.(string)
 	if !stringsAreEqual {
 		mismatches = append(mismatches, SnapShot{
-			Path:     append([]string(nil), currentPath...),
-			MisMatch: shorten(object1.(string), 15) + ":" + shorten(object2.(string), 15),
+			Path:        append([]string(nil), currentPath...),
+			MisMatch:    shorten(object1.(string), 15) + ":" + shorten(object2.(string), 15),
+			Description: "String Values are not equal",
+			Error:       errors[ValueError],
 		})
 		output.incrScore(len(object1.(string)))
 	}
@@ -157,6 +181,21 @@ func sliceCheck(object1 any, object2 any, currentPath []string) {
 	}
 }
 
+func boolCheck(object1 any, object2 any, currentPath []string) {
+	if reflect.TypeOf(object2).Kind() != reflect.Bool {
+		typeError(object1, object2, currentPath)
+		return
+	}
+	if object1.(bool) != object2.(bool) {
+		mismatches = append(mismatches, SnapShot{
+			Path:        append([]string(nil), currentPath...),
+			MisMatch:    boolToString(object1.(bool)) + "  :  " + boolToString(object2.(bool)),
+			Description: "Bools are not equal",
+			Error:       errors[ValueError],
+		})
+	}
+}
+
 func mapCheck(object1 any, object2 any, currentPath []string) {
 	if reflect.TypeOf(object2).Kind() != reflect.Map {
 		typeError(object1, object2, currentPath)
@@ -166,8 +205,10 @@ func mapCheck(object1 any, object2 any, currentPath []string) {
 		_, keyInMap := object2.(map[string]any)[key]
 		if !keyInMap {
 			mismatches = append(mismatches, SnapShot{
-				Path:     append([]string(nil), currentPath...),
-				MisMatch: key,
+				Path:        append([]string(nil), currentPath...),
+				MisMatch:    key,
+				Description: "Key Not in Other File",
+				Error:       errors[KeyError],
 			})
 			output.incrScore(getJsonSize(object1.(map[string]interface{})[key]) + getJsonSize(key))
 		} else {
@@ -187,8 +228,10 @@ func typeError(object1 any, object2 any, currentPath []string) {
 		log.Fatal(err)
 	}
 	mismatches = append(mismatches, SnapShot{
-		Path:     append([]string(nil), currentPath...),
-		MisMatch: shorten(string(jsonString1), 15) + ":" + shorten(string(jsonString2), 15),
+		Path:        append([]string(nil), currentPath...),
+		MisMatch:    shorten(string(jsonString1), 15) + ":" + shorten(string(jsonString2), 15),
+		Description: "Value Type Mismatch",
+		Error:       errors[TypeError],
 	})
 }
 func shorten(s string, max int) string {
@@ -196,6 +239,13 @@ func shorten(s string, max int) string {
 		return s[:max] + "...  "
 	}
 	return s + "   "
+}
+
+func boolToString(b bool) string {
+	if b {
+		return "true"
+	}
+	return "false"
 }
 
 func parseJson(file os.File) (error, any) {
