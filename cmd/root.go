@@ -11,7 +11,7 @@ import (
 )
 
 var rootCommand = &cobra.Command{
-	Use:   "JsonCompare [path to json...] [path to json...] [flags] ",
+	Use:   "JsonCompare [path to json...] [path to json...] [flags can go anywhere!] ",
 	Short: "Cli tool to assist with Json Comparing",
 	Long: ` 
     /$$$$$                                /$$$$$$                                                                 

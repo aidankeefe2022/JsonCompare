@@ -125,7 +125,7 @@ go build .
 Then run
 
 ```
-./main JsonCompare -h
+./main -h
 ```
 
 ### Run with `go run`
@@ -133,5 +133,5 @@ Then run
 In project root directory
 
 ```
-go run main.go JsonCompare -h
+go run main.go -h
 ```
