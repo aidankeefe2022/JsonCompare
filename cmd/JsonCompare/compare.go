@@ -115,6 +115,9 @@ func CompareFiles(path1 string, path2 string) Output {
 
 }
 
+/*
+Object1 is compared against object2
+*/
 func check(object1 any, object2 any, currentPath []string) {
 	if object1 == nil {
 		return
@@ -131,6 +134,8 @@ func check(object1 any, object2 any, currentPath []string) {
 		floatCheck(object1, object2, currentPath)
 	} else if reflect.TypeOf(object1).Kind() == reflect.String {
 		stringCheck(object1, object2, currentPath)
+	} else if reflect.TypeOf(object2).Kind() == reflect.Bool {
+		boolCheck(object1, object2, currentPath)
 	}
 }
 
@@ -193,6 +198,7 @@ func boolCheck(object1 any, object2 any, currentPath []string) {
 			Description: "Bools are not equal",
 			Error:       errors[ValueError],
 		})
+		output.incrScore(len(boolToString(object1.(bool))))
 	}
 }
 

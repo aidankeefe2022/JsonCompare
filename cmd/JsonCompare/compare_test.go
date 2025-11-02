@@ -185,3 +185,14 @@ func TestCompareFiles34(t *testing.T) {
 	}
 	mismatches = make([]SnapShot, 0)
 }
+
+func TestCompareFilesBool(t *testing.T) {
+	output = Output{
+		Score: 1.0,
+	}
+	out := CompareFiles("/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test1Bool.json", "/home/aidankeefe/Work_Techlink/JsonCompare/testFiles/test2Bool.json")
+	if len(out.File1Mismatch) != 1 {
+		t.Error("Expected 1 mismatch")
+	}
+	mismatches = make([]SnapShot, 0)
+}

@@ -82,7 +82,8 @@ Example
 ```
 
 Ciao does not exist in file 1 so "Ciao" and "bye" are counted as mismatched bytes.
-Hello does not exist in file 1 so "Ciao" and "bye" are counted as mismatched bytes.
+
+Hello does not exist in file 2 so "Hello" and "bye" are counted as mismatched bytes.
 
 Score in this case would be 0.
 
