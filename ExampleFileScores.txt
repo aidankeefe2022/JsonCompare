@@ -1,0 +1,6 @@
+example_1.json vs example_2.json = 1.0
+example_1.json vs example_3.json = 0.821
+example_1.json vs example_4.json = 0.614
+example_2.json vs example_3.json = 0.821
+example_2.json vs example_4.json = 0.614
+example_3.json vs example_4.json = 0.680

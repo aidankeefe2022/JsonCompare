@@ -180,7 +180,18 @@ func sliceCheck(object1 any, object2 any, currentPath []string) {
 	}
 	for index, item1 := range object1.([]interface{}) {
 		if index >= len(object2.([]interface{})) {
-			return
+			if item1Bytes, err := json.Marshal(item1); err != nil {
+				log.Fatal(err)
+			} else {
+				mismatches = append(mismatches, SnapShot{
+					Path:        append([]string(nil), currentPath...),
+					MisMatch:    shorten(string(item1Bytes), 15),
+					Description: "Items in list is after last entry in other file",
+					Error:       errors[ValueError],
+				})
+				output.incrScore(len(item1Bytes))
+			}
+			continue
 		}
 		check(item1, object2.([]any)[index], append(currentPath, strconv.Itoa(index)))
 	}
