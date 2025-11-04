@@ -64,7 +64,7 @@ File2Mismatch: This shows everything in file 2 and not in file 1
 
 ## How is JSON Compared
 This tool takes two json files and returns a score based on the number of matching non-structural bytes in the JSON.
-A non-structural byte are the strings, numbers and booleans that make up the data in the JSON. Mismatched byte are any
+A non-structural bytes are the strings, numbers and booleans that make up the data in the JSON. Mismatched bytes are any
 bytes that are apart of or below an initial disagreement:
 
 Example
